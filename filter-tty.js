@@ -1,13 +1,14 @@
 #!/usr/bin/env osascript -l JavaScript
 
-function sessionToObj(winId, tabId) {
+function sessionToObj(winId, tabId, query) {
     return function(session, sesId) {
         return {
             id:      [winId, tabId, sesId].join(" "),
             title:   session.name(),
             tty:     session.tty(),
             output:  session.isProcessing(),
-            profile: session.profileName()
+            profile: session.profileName(),
+            query:   query
         }
     }
 }
@@ -24,18 +25,23 @@ function objToItem(obj) {
                 alt: {
                     arg: ["close", obj.id].join(" "),
                     subtitle: ["Close", description].join(" ")
+                },
+                cmd: {
+                    arg: ["ssh", obj.query].join(" "),
+                    title: ["⇄ ssh", obj.query].join(" "),
+                    subtitle: "Switch to ssh workflow"
                 }
             }
         }
 }
 
-function allSessionObjs(app) {
+function allSessionObjs(app, query) {
     var windows = app.windows;
     var results = new Array();
     for (var i = 0; i < windows.length; ++i) {
         var tabs = windows[i].tabs;
         for (var j = 0; j < tabs.length; ++j) {
-            results.push(...tabs[j].sessions().map(sessionToObj(i, j)));
+            results.push(...tabs[j].sessions().map(sessionToObj(i, j, query)));
         }
     }
     return results;
@@ -61,12 +67,26 @@ function ttyFilter(ttyNum) {
 
 function run(args) {
     args = args.join(" ").split(" ");
-    var titlePattern = String(args[0] || "");
-    var ttyPattern = String(args[1] || "");
+    var query = String(args[0] || "");
+    var tty = String(args[1] || "");
     var sessionObjs = new Array();
     var app = Application("com.googlecode.iterm2");
     if (app.running()) {
-        sessionObjs = allSessionObjs(app).filter(titleFilter(titlePattern)).filter(ttyFilter(ttyPattern));
+        sessionObjs = allSessionObjs(app, query).filter(titleFilter(query)).filter(ttyFilter(tty));
     }
-    return JSON.stringify({items: sessionObjs.map(objToItem)});
+    if (sessionObjs.length == 0) {
+        return JSON.stringify({
+            items:
+                [
+                    {
+                        title: ["⇄ ssh", query].join(" "),
+                        subtitle: "No matches! Switch to ssh workflow?",
+                        arg: ["ssh", query].join(" "),
+                        icon: { path: "icon.png" },
+                    }
+                ]
+        });
+    } else {
+        return JSON.stringify({items: sessionObjs.map(objToItem)});
+    }
 }

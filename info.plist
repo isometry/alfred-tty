@@ -59,7 +59,7 @@
 				<key>escaping</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>tty</string>
+				<string>{var:keyword}</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -150,6 +150,8 @@
 	<key>readme</key>
 	<string>Type `tty` in Alfred followed by some characters from the title of an open tab or pane; press `Enter` to activate the selected pane, or Alt-Enter` to close it. For example, enter `tty as3` to switch to a tab with the title `user@azure-server-03`.
 
+If no active terminal matches, or you use the Cmd-modifier, trigger your preferred ssh workflow (default: [isometry/alfred.ssh](https://github.com/isometry/alfred-ssh); choose by setting the `ssh_workflow` and `ssh_trigger` Workflow Environment Variables).
+
 In order to make working with more than one window/tab/pane with the same title easier, the TTY is displayed beneath the result, and can be provided as a second argument to the trigger, e.g. `tty lo 3` to select the the session with title `localhost` running on `/dev/ttys003`.
 
 Optionally associate a hotkey trigger to further accelerate operation, e.g. Ctrl+Alt+T.
@@ -183,8 +185,17 @@ Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (
 			<integer>70</integer>
 		</dict>
 	</dict>
+	<key>variables</key>
+	<dict>
+		<key>keyword</key>
+		<string>tty</string>
+		<key>ssh_trigger</key>
+		<string>ssh</string>
+		<key>ssh_workflow</key>
+		<string>net.isometry.alfred.ssh</string>
+	</dict>
 	<key>version</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/isometry/alfred-tty</string>
 </dict>
