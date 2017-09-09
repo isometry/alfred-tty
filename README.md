@@ -1,4 +1,4 @@
-# ^TTY workflow for Alfred
+# ^tty workflow for Alfred
 
 A JXA-based workflow for [Alfred](http://www.alfredapp.com/) Powerpack users to quickly switch between or close iTerm windows, tabs and panes based on title and tty.
 
@@ -7,8 +7,9 @@ A JXA-based workflow for [Alfred](http://www.alfredapp.com/) Powerpack users to 
 
 ## Prerequisites
 
-- [Alfred](http://www.alfredapp.com/) (version 3.x)
-- The [Alfred Powerpack](http://www.alfredapp.com/powerpack/)
+- [Alfred](http://www.alfredapp.com/) (version 3.0+)
+- [Alfred Powerpack](http://www.alfredapp.com/powerpack/)
+- [iTerm2](https://www.iterm2.com/) (version 3.1+)
 - macOS Sierra or newer (strictly, Mac OS X 10.10+, but untested on <10.12)
 
 ## Usage
@@ -21,4 +22,4 @@ To select by tty alone, use two spaces between the trigger and the tty number. F
 
 Optionally associate a hotkey trigger to further accelerate operation, e.g. Ctrl+Alt+T.
 
-Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (e.g. "Name"=`$$USER$$@$$HOST$$`, "Command"=`$$` and "Schemes handled"=`ssh`) and an ssh workflow (e.g. [alfred-ssh](https://github.com/isometry/alfred-ssh)) to make opening and jumping between remote sessions across many windows, tabs and panes easy.
+Combine with an [iTerm2](https://www.iterm2.com/) profile configured as ssh protocol handler (e.g. "Name"=`$$USER$$@$$HOST$$`, "Command"=`$$` and "Schemes handled"=`ssh`) and an [alfred-ssh](https://github.com/isometry/alfred-ssh) workflow to make opening and jumping between remote sessions across many windows, tabs and panes easy.
