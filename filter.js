@@ -9,10 +9,10 @@ function getenv(name, default_value) {
     }
 }
 
-function sessionToObj(winId, tabId, query) {
-    return function(session, sesId) {
+function sessionToObj(windowId, tabIndex, query) {
+    return function(session) {
         return {
-            id:      [winId, tabId, sesId].join(" "),
+            id:      [windowId, tabIndex, session.id()].join(" "),
             title:   session.name(),
             tty:     session.tty(),
             output:  session.isProcessing(),
@@ -47,10 +47,12 @@ function objToItem(obj) {
 function allSessionObjs(app, query) {
     var windows = app.windows;
     var results = new Array();
-    for (var i = 0; i < windows.length; ++i) {
-        var tabs = windows[i].tabs;
-        for (var j = 0; j < tabs.length; ++j) {
-            results.push(...tabs[j].sessions().map(sessionToObj(i, j, query)));
+    var windowIds = windows.id();
+    for (var i=0; i < windowIds.length; ++i) {
+        var windowId = windowIds[i];
+        var tabs = windows.byId(windowId).tabs;
+        for (var tabIndex=0; tabIndex < tabs.length; ++tabIndex) {
+            results.push(...tabs[tabIndex].sessions().map(sessionToObj(windowId, tabIndex, query)));
         }
     }
     return results;

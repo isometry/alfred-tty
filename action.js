@@ -23,9 +23,9 @@ function run(args)
         app.strictPropertyScope = true;
         app.strictCommandScope  = true;
         app.strictParameterType = true;
-        var win = app.windows[Number(args[1])];
+        var win = app.windows.byId(Number(args[1]));
         var tab = win.tabs[Number(args[2])];
-        var ses = tab.sessions[Number(args[3])];
+        var ses = tab.sessions.byId(String(args[3]));
         switch (action) {
             case "select":
                 // tab => session => window => app
@@ -35,10 +35,7 @@ function run(args)
                 app.activate();
                 break;
             case "close":
-                var old = win.currentTab();
-                tab.select();
                 ses.close();
-                old.select();
                 break;
             case "debug":
                 console.log(JSON.stringify({args:args, title:ses.name()}));
