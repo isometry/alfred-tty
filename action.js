@@ -1,12 +1,7 @@
 #!/usr/bin/env osascript -l JavaScript
 
 function getenv(name, default_value) {
-    ObjC.import('stdlib')
-    try {
-        value = $.getenv(name);
-    } finally {
-        return (typeof value === 'undefined') ? default_value : value;
-    }
+    return ObjC.unwrap($.NSProcessInfo.processInfo.environment.objectForKey(name)) || default_value
 }
 
 function run(args)
