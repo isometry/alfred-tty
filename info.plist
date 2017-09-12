@@ -53,7 +53,7 @@
 				<key>alfredfiltersresultsmatchmode</key>
 				<integer>0</integer>
 				<key>argumenttrimmode</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>escaping</key>
@@ -65,7 +65,7 @@
 				<key>queuedelayimmediatelyinitially</key>
 				<false/>
 				<key>queuedelaymode</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>queuemode</key>
 				<integer>2</integer>
 				<key>runningsubtext</key>
@@ -106,7 +106,7 @@
 				<key>hotkey</key>
 				<integer>40</integer>
 				<key>hotmod</key>
-				<integer>786432</integer>
+				<integer>1310720</integer>
 				<key>hotstring</key>
 				<string>T</string>
 				<key>leftcursor</key>
@@ -200,17 +200,17 @@ Combine with an [iTerm2](https://www.iterm2.com/) profile configured as ssh prot
 	</dict>
 	<key>variables</key>
 	<dict>
+		<key>iterm_application</key>
+		<string>com.googlecode.iterm2</string>
 		<key>keyword</key>
 		<string>tty</string>
 		<key>ssh_trigger</key>
 		<string>ssh</string>
 		<key>ssh_workflow</key>
 		<string>net.isometry.alfred.ssh</string>
-        <key>iterm_application</key>
-        <string>com.googlecode.iterm2</string>
 	</dict>
 	<key>version</key>
-	<string>1.2-beta1</string>
+	<string>1.2-beta2</string>
 	<key>webaddress</key>
 	<string>https://github.com/isometry/alfred-tty</string>
 </dict>
