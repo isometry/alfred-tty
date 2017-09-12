@@ -1,9 +1,12 @@
 #!/usr/bin/env osascript -l JavaScript
 
-function getenv(name, value=null) {
+function getenv(name, default_value) {
     ObjC.import('stdlib')
-    try { value = $.getenv(name); }
-    finally { return value; }
+    try {
+        value = $.getenv(name);
+    } finally {
+        return (typeof value === 'undefined') ? default_value : value;
+    }
 }
 
 function run(args)
@@ -16,7 +19,7 @@ function run(args)
         alfred.runTrigger(getenv("ssh_trigger", "ssh"),
             {inWorkflow:getenv("ssh_workflow", "net.isometry.alfred.ssh"), withArgument:host});
     } else {
-        var iterm = Application("com.googlecode.iterm2");
+        var iterm = Application(getenv("iterm_application", "com.googlecode.iterm2"));
         var win = iterm.windows[Number(args[1])];
         var tab = win.tabs[Number(args[2])];
         var ses = tab.sessions[Number(args[3])];
@@ -34,8 +37,11 @@ function run(args)
                 ses.close();
                 old.select();
                 break;
+            case "debug":
+                console.log(JSON.stringify({args:args, title:ses.name()}));
+                break;
             default:
-                console.info(JSON.stringify({args:args, title:ses.name()}));
+                console.log("Invalid arguments:", JSON.stringify(args));
                 break;
         }
     }

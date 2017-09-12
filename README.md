@@ -10,7 +10,7 @@ A JXA-based workflow for [Alfred](http://www.alfredapp.com/) Powerpack users to 
 - [Alfred](http://www.alfredapp.com/) (version 3.0+)
 - [Alfred Powerpack](http://www.alfredapp.com/powerpack/)
 - [iTerm2](https://www.iterm2.com/) (version 3.1+)
-- macOS Sierra or newer (strictly, Mac OS X 10.10+, but untested on <10.12)
+- macOS Sierra or newer (strictly, OS X 10.10+, but untested on <10.12)
 
 ## Usage
 
@@ -26,3 +26,13 @@ To select by tty alone, use two spaces between the trigger and the tty number. F
 Optionally associate a hotkey trigger to further accelerate operation, e.g. `Ctrl+Cmd+T`, or change the trigger word via the `keyword` variable.
 
 Combine with an [iTerm2](https://www.iterm2.com/) profile configured as ssh protocol handler (e.g. "Name":=`$$USER$$@$$HOST$$`, "Command":=`$$` and "Schemes handled":=`ssh`) and an [alfred-ssh](https://github.com/isometry/alfred-ssh) workflow to make opening and jumping between remote sessions across many windows, tabs and panes easy.
+
+### Workflow Variables
+
+`keyword` – the keyword trigger for the workflow; default: `tty`.
+
+`ssh_workflow` – the workflow bundle identifier for your preferred alfred-ssh workflow; default: `net.isometry.alfred.ssh`.
+
+`ssh_trigger` – the name of the trigger within `ssh_workflow`; default: `ssh`.
+
+`iterm_application` – the application identifier of the iTerm2 instance you want to control, either bundleId, application name or absolute path; default: `com.googlecode.iterm2`.

@@ -1,5 +1,14 @@
 #!/usr/bin/env osascript -l JavaScript
 
+function getenv(name, default_value) {
+    ObjC.import('stdlib')
+    try {
+        value = $.getenv(name);
+    } finally {
+        return (typeof value === 'undefined') ? default_value : value;
+    }
+}
+
 function sessionToObj(winId, tabId, query) {
     return function(session, sesId) {
         return {
@@ -28,7 +37,7 @@ function objToItem(obj) {
                 },
                 cmd: {
                     arg: ["ssh", obj.query].join(" "),
-                    title: ["⇄ ssh", obj.query].join(" "),
+                    title: ["⇌ ssh", obj.query].join(" "),
                     subtitle: "Switch to ssh workflow"
                 }
             }
@@ -70,7 +79,7 @@ function run(args) {
     var query = String(args[0] || "");
     var tty = String(args[1] || "");
     var sessionObjs = new Array();
-    var app = Application("com.googlecode.iterm2");
+    var app = Application(getenv("iterm_application", "com.googlecode.iterm2"));
     if (app.running()) {
         sessionObjs = allSessionObjs(app, query).filter(titleFilter(query)).filter(ttyFilter(tty));
     }
@@ -79,7 +88,7 @@ function run(args) {
             items:
                 [
                     {
-                        title: ["⇄ ssh", query].join(" "),
+                        title: ["⇌ ssh", query].join(" "),
                         subtitle: "No matches! Switch to ssh workflow?",
                         arg: ["ssh", query].join(" "),
                         icon: { path: "icon.png" },

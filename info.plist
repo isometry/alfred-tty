@@ -71,11 +71,11 @@
 				<key>runningsubtext</key>
 				<string>Please wait…</string>
 				<key>script</key>
-				<string>./filter-tty.js "$@"</string>
+				<string></string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string>filter-tty.js</string>
+				<string>filter.js</string>
 				<key>subtext</key>
 				<string></string>
 				<key>title</key>
@@ -135,7 +135,7 @@
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
-				<string>action-tty.js</string>
+				<string>action.js</string>
 				<key>type</key>
 				<integer>8</integer>
 			</dict>
@@ -148,15 +148,28 @@
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>Type `tty` in Alfred followed by some characters from the title of an open tab or pane; press `Enter` to activate the selected pane, or Alt-Enter` to close it. For example, enter `tty as3` to switch to a tab with the title `user@azure-server-03`.
+	<string> Trigger the workflow with the keyword `tty`, or via hotkey, followed by some characters from the title of an open window, tab or pane; press `Enter` to activate the selected window/tab/pane, `Alt-Enter` to close it, or `Cmd-Enter` to trigger your ssh workflow. For example, enter `tty as3` to switch to a tab with the title `user@azure-server-03`.
 
-If no active terminal matches, or you use the Cmd-modifier, trigger your preferred ssh workflow (default: [isometry/alfred.ssh](https://github.com/isometry/alfred-ssh); choose by setting the `ssh_workflow` and `ssh_trigger` Workflow Environment Variables).
+If no active terminal matches, or you use the `Cmd`-modifier, trigger your preferred ssh workflow, e.g. `⇄ ssh as3`.
+By default, the ssh workflow is assumed to be `net.isometry.alfred.ssh` (i.e. [isometry/alfred-ssh](https://github.com/isometry/alfred-ssh), version 2.3+). Override by setting the `ssh_workflow` and `ssh_trigger` variables; for [deanishe/alfred-ssh](https://github.com/deanish/alfred-ssh), set the `ssh_workflow` variable to `net.deanishe.alfred-ssh`.
 
-In order to make working with more than one window/tab/pane with the same title easier, the TTY is displayed beneath the result, and can be provided as a second argument to the trigger, e.g. `tty lo 3` to select the the session with title `localhost` running on `/dev/ttys003`.
+In order to make working with more than one window/tab/pane with the same title easier, the tty is displayed beneath the result, and can be provided as a second argument to the trigger. For example, enter `tty lo 3` to select the the session with title `localhost` running on `/dev/ttys003`.
 
-Optionally associate a hotkey trigger to further accelerate operation, e.g. Ctrl+Alt+T.
+To select by tty alone, use two spaces between the trigger and the tty number. For example, `tty  4` will select `/dev/ttys004`.
 
-Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (e.g. "Name"=`$$USER$$@$$HOST$$`, "Command"=`$$` and "Schemes handled"=`ssh`) and an ssh workflow (e.g. [alfred-ssh](https://github.com/isometry/alfred-ssh)) to make opening and jumping between remote sessions across many windows, tabs and panes easy.</string>
+Optionally associate a hotkey trigger to further accelerate operation, e.g. `Ctrl+Cmd+T`, or change the trigger word via the `keyword` variable.
+
+Combine with an [iTerm2](https://www.iterm2.com/) profile configured as ssh protocol handler (e.g. "Name":=`$$USER$$@$$HOST$$`, "Command":=`$$` and "Schemes handled":=`ssh`) and an [alfred-ssh](https://github.com/isometry/alfred-ssh) workflow to make opening and jumping between remote sessions across many windows, tabs and panes easy.
+
+### Workflow Variables
+
+`keyword` – the keyword trigger for the workflow; default: `tty`.
+
+`ssh_workflow` – the workflow bundle identifier for your preferred alfred-ssh workflow; default: `net.isometry.alfred.ssh`.
+
+`ssh_trigger` – the name of the trigger within `ssh_workflow`; default: `ssh`.
+
+`iterm_application` – the application identifier of the iTerm2 instance you want to control, either bundleId, application name or absolute path; default: `com.googlecode.iterm2`.</string>
 	<key>uidata</key>
 	<dict>
 		<key>45E888C5-D745-4FEC-B0CC-80C4A33371F8</key>
@@ -169,7 +182,7 @@ Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (
 		<key>83C7D354-7702-4395-AA13-7F6F3E1EC22F</key>
 		<dict>
 			<key>note</key>
-			<string>action-tty.js</string>
+			<string>action</string>
 			<key>xpos</key>
 			<integer>430</integer>
 			<key>ypos</key>
@@ -178,7 +191,7 @@ Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (
 		<key>C9298943-AE22-4585-8C3B-4A3E72EEAAA4</key>
 		<dict>
 			<key>note</key>
-			<string>filter-tty.js</string>
+			<string>filter</string>
 			<key>xpos</key>
 			<integer>250</integer>
 			<key>ypos</key>
@@ -193,9 +206,11 @@ Combine with an ssh protocol handler [iTerm2](https://www.iterm2.com/) profile (
 		<string>ssh</string>
 		<key>ssh_workflow</key>
 		<string>net.isometry.alfred.ssh</string>
+        <key>iterm_application</key>
+        <string>com.googlecode.iterm2</string>
 	</dict>
 	<key>version</key>
-	<string>1.1</string>
+	<string>1.2-beta1</string>
 	<key>webaddress</key>
 	<string>https://github.com/isometry/alfred-tty</string>
 </dict>
