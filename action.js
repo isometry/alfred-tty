@@ -15,12 +15,15 @@ function run(args)
     var action = String(args[0]);
     if (action == "ssh") {
         var host = String(args[1] || "");
-        var alfred = Application("com.runningwithcrayons.Alfred-3");
-        alfred.runTrigger(getenv("ssh_trigger", "ssh"),
+        var app = Application("com.runningwithcrayons.Alfred-3");
+        app.runTrigger(getenv("ssh_trigger", "ssh"),
             {inWorkflow:getenv("ssh_workflow", "net.isometry.alfred.ssh"), withArgument:host});
     } else {
-        var iterm = Application(getenv("iterm_application", "com.googlecode.iterm2"));
-        var win = iterm.windows[Number(args[1])];
+        var app = Application(getenv("iterm_application", "com.googlecode.iterm2"));
+        app.strictPropertyScope = true;
+        app.strictCommandScope  = true;
+        app.strictParameterType = true;
+        var win = app.windows[Number(args[1])];
         var tab = win.tabs[Number(args[2])];
         var ses = tab.sessions[Number(args[3])];
         switch (action) {
@@ -29,7 +32,7 @@ function run(args)
                 tab.select();
                 ses.select();
                 win.select();
-                iterm.activate();
+                app.activate();
                 break;
             case "close":
                 var old = win.currentTab();

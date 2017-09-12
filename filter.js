@@ -80,6 +80,9 @@ function run(args) {
     var tty = String(args[1] || "");
     var sessionObjs = new Array();
     var app = Application(getenv("iterm_application", "com.googlecode.iterm2"));
+    app.strictPropertyScope = true;
+    app.strictCommandScope  = true;
+    app.strictParameterType = true;
     if (app.running()) {
         sessionObjs = allSessionObjs(app, query).filter(titleFilter(query)).filter(ttyFilter(tty));
     }
