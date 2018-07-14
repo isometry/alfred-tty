@@ -210,7 +210,7 @@ Combine with an [iTerm2](https://www.iterm2.com/) profile configured as ssh prot
 		<string>net.isometry.alfred.ssh</string>
 	</dict>
 	<key>version</key>
-	<string>1.3</string>
+	<string>1.4-beta1</string>
 	<key>webaddress</key>
 	<string>https://github.com/isometry/alfred-tty</string>
 </dict>
