@@ -57,7 +57,7 @@ function allSessionObjs(app, query) {
 }
 
 function titleFilter(pattern) {
-    var re = new RegExp(pattern.replace(/./g, "$&.*?"));
+    var re = new RegExp(pattern.replace(/./g, "$&.*?"), "i");
     return (obj) => re.exec(obj.title);
 }
 
