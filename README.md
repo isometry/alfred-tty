@@ -3,7 +3,7 @@
 A JXA-based workflow for [Alfred](http://www.alfredapp.com/) Powerpack users to quickly switch between or close iTerm windows, tabs and panes based on title and tty, or trigger your preferred ssh workflow when no open session is found (supports both [isometry/alfred-ssh](https://github.com/isometry/alfred-ssh) and [deanishe/alfred-ssh](https://github.com/deanishe/alfred-ssh)).
 
 ## Releases
-- [Latest for Alfred 3.x](https://github.com/isometry/alfred-tty/releases/latest)
+- [Latest for Alfred 3.x/4.x](https://github.com/isometry/alfred-tty/releases/latest)
 
 ## Requirements
 
